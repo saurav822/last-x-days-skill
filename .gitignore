@@ -8,6 +8,9 @@ docs/30-day-anniversary-thread.md
 docs/30-day-anniversary-tweets.md
 variants/open/references/research.md
 
+# Python virtual environment
+.venv/
+
 # OS / tool files
 .DS_Store
 .claude/

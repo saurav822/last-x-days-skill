@@ -104,7 +104,7 @@ def render_compact(report: schema.Report, limit: int = 15, missing_keys: str = "
     # Assess data freshness and add honesty warning if needed
     freshness = _assess_data_freshness(report)
     if freshness["is_sparse"]:
-        lines.append("**⚠️ LIMITED RECENT DATA** - Few discussions from the last 30 days.")
+        lines.append(f"**⚠️ LIMITED RECENT DATA** - Few discussions from the last {report.days if hasattr(report, 'days') else 30} days.")
         lines.append(f"Only {freshness['total_recent']} item(s) confirmed from {report.range_from} to {report.range_to}.")
         lines.append("Results below may include older/evergreen content. Be transparent with the user about this.")
         lines.append("")
