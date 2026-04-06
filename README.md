@@ -1,4 +1,4 @@
-# /last30days v2.9.5
+# /last-x-days v2.9.5
 
 ### Claude Code (recommended)
 ```
@@ -12,7 +12,41 @@
 clawhub install last30days-official
 ```
 
-**The AI world reinvents itself every month. This skill keeps you current.** /last30days researches your topic across Reddit, X, YouTube, and other sources from the last 30 days, finds what the community is actually upvoting, sharing, betting on, and saying on camera, and writes you a grounded narrative with real citations. Whether it's Seedance 2.0 access, paper.design prompts, or the latest Nano Banana Pro techniques, you'll know what people who are paying attention already know.
+---
+
+## Run the Web UI Locally
+
+```bash
+# 1. Clone and set up
+git clone https://github.com/saurav822/last-x-days-skill.git
+cd last-x-days-skill
+python3.9 -m venv .venv
+source .venv/bin/activate
+pip install requests yt-dlp flask
+
+# 2. Add your API keys
+mkdir -p ~/.config/last30days
+cat > ~/.config/last30days/.env << 'EOF'
+SCRAPECREATORS_API_KEY=your_key_here
+AUTH_TOKEN=your_x_auth_token
+CT0=your_x_ct0_token
+EXA_API_KEY=your_exa_key
+SETUP_COMPLETE=1
+EOF
+chmod 600 ~/.config/last30days/.env
+
+# 3. Start the server
+python3 scripts/webapp.py
+# Open http://localhost:5000
+```
+
+> **Port 5000 taken?** macOS uses it for AirPlay Receiver. Run `PORT=5001 python3 scripts/webapp.py` instead.
+
+The web UI lets you enter any topic, choose how many days back to search (1–365), and pick a depth (Quick / Default / Deep). Results stream live and render as structured cards.
+
+---
+
+**The AI world reinvents itself every month. This skill keeps you current.** /last-x-days researches your topic across Reddit, X, YouTube, and other sources from a configurable time window (default: last 30 days, supports up to 365), finds what the community is actually upvoting, sharing, betting on, and saying on camera, and writes you a grounded narrative with real citations. Whether it's Seedance 2.0 access, paper.design prompts, or the latest Nano Banana Pro techniques, you'll know what people who are paying attention already know.
 
 **New in v2.9.5 — Bluesky, Comparative Mode, and Config Improvements:**
 
@@ -216,7 +250,7 @@ Examples:
 
 ## What It Does
 
-1. **Researches** - Scans Reddit, X, YouTube, and other sources for discussions from the last 30 days
+1. **Researches** - Scans Reddit, X, YouTube, and other sources for discussions from the last X days (configurable, default 30)
 2. **Synthesizes** - Identifies patterns, best practices, and what actually works
 3. **Delivers** - Either writes copy-paste-ready prompts for your target tool, or gives you a curated expert-level answer
 
@@ -613,7 +647,7 @@ This example shows how /last30days discovers **viral trends you didn't know exis
 
 ```
 Create a 50-second launch video for "/last30days" - a Claude Code skill that
-researches any topic across Reddit and X from the last 30 days, then writes
+researches any topic across Reddit and X from the last X days (default: 30), then writes
 copy-paste-ready prompts.
 
 SCENE 1 (0-8s): The Problem
@@ -630,7 +664,7 @@ Subtitle fades in below: "Instant expertise. Real prompts."
 
 SCENE 3 (16-28s): How It Works
 Split into 3 animated steps that slide in sequentially:
-1. [Reddit + X icons merge] "Scans Reddit & X from the last 30 days"
+1. [Reddit + X icons merge] "Scans Reddit & X from the last X days"
 2. [Brain/lightbulb icon] "Synthesizes what actually works"
 3. [Document with sparkle] "Writes prompts you can copy-paste"
 
